@@ -53,7 +53,7 @@ public abstract class AbstractGenerator implements ICodeGen {
         return jDBCTemplate.queryForObject(SQLConstants.INFORMATION_SCHEMA_TABLE_DETAIL, String.class, database, name);
     }
 
-    private List<Column> findColumnByTableName (String name) {
+    public List<Column> findColumnByTableName (String name) {
         String database = mysqlDataSource.getDatabaseName();
         return jDBCTemplate.query(SQLConstants.INFORMATION_SCHEMA_COLUMNS, (RowMapper<Column>) (rs, i) -> {
 

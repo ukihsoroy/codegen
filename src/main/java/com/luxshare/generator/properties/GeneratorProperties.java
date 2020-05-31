@@ -12,12 +12,35 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "codegen")
 public class GeneratorProperties {
 
-    public static final String prefix = "t_";
+    private String prefix = "t_";
 
     //实体类生成配置
-    public static final EntityProperties entity = new EntityProperties();
+    private EntityProperties entity = new EntityProperties();
 
     //controller生成配置
-    public static final BackendProperties backEnd = new BackendProperties();
+    private BackendProperties backEnd = new BackendProperties();
 
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public EntityProperties getEntity() {
+        return entity;
+    }
+
+    public void setEntity(EntityProperties entity) {
+        this.entity = entity;
+    }
+
+    public BackendProperties getBackEnd() {
+        return backEnd;
+    }
+
+    public void setBackEnd(BackendProperties backEnd) {
+        this.backEnd = backEnd;
+    }
 }

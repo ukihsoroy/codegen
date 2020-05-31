@@ -9,11 +9,31 @@ package com.luxshare.generator.properties;
  */
 public class EntityProperties {
 
-    public static final String module = "sigma-mysql";
+    private String module = "sigma-mysql";
 
-    public static final String rootPackage = "com.luxshare.sigma.data";
+    private final String rootPackage = "com.luxshare.sigma.data";
 
-    public static final String entityTemplate = "entity.java.ftl";
+    private final String entityTemplate = "entity.java.ftl";
 
-    public static final String constantsTemplate = "constants.java.ftl";
+    private final String constantsTemplate = "constants.java.ftl";
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public String getRootPackage() {
+        return rootPackage;
+    }
+
+    public String getEntityTemplate() {
+        return entityTemplate;
+    }
+
+    public String getConstantsTemplate() {
+        return constantsTemplate;
+    }
 }
