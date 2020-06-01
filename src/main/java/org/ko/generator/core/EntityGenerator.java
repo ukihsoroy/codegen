@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * description: EntityGenerator <br>
@@ -35,7 +36,8 @@ public class EntityGenerator extends AbstractGenerator {
             //表注释
             String comment = findTableComment(name);
 
-            String dir = new File(this.getClass().getClassLoader().getResource(".").toURI()).getAbsolutePath();
+            String dir = new File(Objects.requireNonNull(this.getClass().getClassLoader()
+                    .getResource(".")).toURI()).getAbsolutePath();
             int index = dir.indexOf("target");
             String moduleRoot = new File(dir.substring(0, index)).getParent();
 

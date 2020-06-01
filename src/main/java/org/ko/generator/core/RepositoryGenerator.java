@@ -26,7 +26,6 @@ public class RepositoryGenerator extends AbstractGenerator {
 
     private static final String REPOSITORY_PACKAGE = "/repository/";
 
-
     @Override
     public void executor(String... names) throws Exception {
         for (String name : names) {

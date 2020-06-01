@@ -56,9 +56,7 @@ public class ControllerGenerator extends AbstractGenerator {
 
             if (StringUtils.isNotEmpty(controllerFileName)) {
                 File dir = new File(javaDir);
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
+                if (!dir.exists()) dir.mkdirs();
                 Template template = freemarker.getTemplate(properties.getBackEnd().getControllerTemplate());
                 OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(new File(controllerFileName)), "UTF-8");
                 template.process(params, out);

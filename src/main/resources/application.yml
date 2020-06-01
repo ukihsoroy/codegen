@@ -12,6 +12,7 @@ spring:
 
 # 生成工具配置
 codegen:
+  path:
   prefix: t_
   entity:
     module: sigma-mysql

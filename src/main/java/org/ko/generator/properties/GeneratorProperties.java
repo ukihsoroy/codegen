@@ -12,6 +12,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "codegen")
 public class GeneratorProperties {
 
+    private String path;
+
     private String prefix = "t_";
 
     //实体类生成配置
@@ -19,6 +21,14 @@ public class GeneratorProperties {
 
     //controller生成配置
     private BackendProperties backEnd = new BackendProperties();
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public String getPrefix() {
         return prefix;

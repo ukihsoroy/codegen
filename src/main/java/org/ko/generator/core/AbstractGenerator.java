@@ -1,17 +1,17 @@
 package org.ko.generator.core;
 
 import com.google.common.base.CaseFormat;
-import org.ko.generator.constants.SQLConstants;
-import org.ko.generator.entity.Column;
-import org.ko.generator.util.ConverterSQLTypeHandler;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import freemarker.template.Configuration;
 import org.apache.commons.lang3.StringUtils;
+import org.ko.generator.constants.SQLConstants;
 import org.ko.generator.constants.SchemaColumnNameConstants;
+import org.ko.generator.entity.Column;
 import org.ko.generator.properties.GeneratorProperties;
+import org.ko.generator.util.ConverterSQLTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import freemarker.template.Configuration;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -25,21 +25,17 @@ import java.util.List;
  */
 public abstract class AbstractGenerator implements ICodeGen {
 
-    protected static final String ROOT_DIR = "/src/main/java/";
-
     private final JdbcTemplate jDBCTemplate = new JdbcTemplate();
 
     @Autowired protected Configuration freemarker;
 
     @Autowired protected GeneratorProperties properties;
 
-    private MysqlDataSource mysqlDataSource = null;
+    private SQLServerDataSource sqlServerDataSource = null;
 
     public void dataSource (DataSource dataSource) {
         jDBCTemplate.setDataSource(dataSource);
-        if (dataSource instanceof MysqlDataSource) {
-            mysqlDataSource = (MysqlDataSource) dataSource;
-        }
+        sqlServerDataSource = (SQLServerDataSource) dataSource;
     }
 
     private List<String> findTableNames(String database) {
@@ -48,13 +44,13 @@ public abstract class AbstractGenerator implements ICodeGen {
 
 
     protected String findTableComment (String name) {
-        String database = mysqlDataSource.getDatabaseName();
+        String database = sqlServerDataSource.getDatabaseName();
         return jDBCTemplate.queryForObject(SQLConstants.INFORMATION_SCHEMA_TABLE_DETAIL, String.class, database, name);
     }
 
     public List<Column> findColumnByTableName (String name) {
-        String database = mysqlDataSource.getDatabaseName();
-        return jDBCTemplate.query(SQLConstants.INFORMATION_SCHEMA_COLUMNS, (RowMapper<Column>) (rs, i) -> {
+        String database = sqlServerDataSource.getDatabaseName();
+        return jDBCTemplate.query(SQLConstants.INFORMATION_SCHEMA_COLUMNS, (rs, i) -> {
 
             String columnName = rs.getString(SchemaColumnNameConstants.COLUMN_NAME);
             String columnType = rs.getString(SchemaColumnNameConstants.DATA_TYPE).toLowerCase();

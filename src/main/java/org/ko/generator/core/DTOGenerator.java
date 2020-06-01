@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -58,7 +59,7 @@ public class DTOGenerator extends AbstractGenerator {
                 if (!dir.exists()) dir.mkdirs();
                 Template template = freemarker.getTemplate(properties.getBackEnd().getDtoTemplate());
                 OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(
-                        new File(repositoryFileName)), "UTF-8");
+                        new File(repositoryFileName)), StandardCharsets.UTF_8);
                 template.process(params, out);
                 out.close();
             }
