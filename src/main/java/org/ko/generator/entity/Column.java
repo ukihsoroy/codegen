@@ -2,23 +2,17 @@ package org.ko.generator.entity;
 
 public class Column {
 
-    public Column(String columnName, String propertyName, String columnType, String propertyType, boolean primaryKey, Integer length, String comment) {
+    public Column(String columnName, String columnType, String propertyType, int length) {
         this.columnName = columnName;
-        this.propertyName = propertyName;
         this.columnType = columnType;
         this.propertyType = propertyType;
-        this.primaryKey = primaryKey;
         this.length = length;
-        this.comment = comment;
     }
 
     private String columnName;
-    private String propertyName;
     private String columnType;
     private String propertyType;
-    private boolean primaryKey;
-    private Integer length;
-    private String comment;
+    private int length;
 
     public String getColumnName() {
         return columnName;
@@ -26,14 +20,6 @@ public class Column {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
-    }
-
-    public String getPropertyName() {
-        return propertyName;
-    }
-
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
     }
 
     public String getColumnType() {
@@ -52,27 +38,11 @@ public class Column {
         this.propertyType = propertyType;
     }
 
-    public boolean isPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(boolean primaryKey) {
-        this.primaryKey = primaryKey;
-    }
-
-    public Integer getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(int length) {
         this.length = length;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 }

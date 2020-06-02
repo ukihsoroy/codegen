@@ -11,7 +11,6 @@ import org.ko.generator.properties.GeneratorProperties;
 import org.ko.generator.util.ConverterSQLTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -42,33 +41,27 @@ public abstract class AbstractGenerator implements ICodeGen {
         return jDBCTemplate.queryForList(SQLConstants.INFORMATION_SCHEMA_TABLES, String.class, database);
     }
 
-
-    protected String findTableComment (String name) {
-        String database = sqlServerDataSource.getDatabaseName();
-        return jDBCTemplate.queryForObject(SQLConstants.INFORMATION_SCHEMA_TABLE_DETAIL, String.class, database, name);
-    }
-
     public List<Column> findColumnByTableName (String name) {
-        String database = sqlServerDataSource.getDatabaseName();
         return jDBCTemplate.query(SQLConstants.INFORMATION_SCHEMA_COLUMNS, (rs, i) -> {
 
             String columnName = rs.getString(SchemaColumnNameConstants.COLUMN_NAME);
+            System.out.println("column name: " + columnName);
+
             String columnType = rs.getString(SchemaColumnNameConstants.DATA_TYPE).toLowerCase();
-            Integer charLength = toInt(rs.getString(SchemaColumnNameConstants.CHARACTER_MAXIMUM_LENGTH));
-            Integer precision = toInt(rs.getString(SchemaColumnNameConstants.NUMERIC_PRECISION));
-            Integer scale = toInt(rs.getString(SchemaColumnNameConstants.NUMERIC_SCALE));
-            int len = charLength + precision + scale;
-            if (scale != 0) len = len + 1;
+            System.out.println("column type: " + columnType);
+
+            String propertyType = ConverterSQLTypeHandler.format(columnType);
+            System.out.println("property type: " + propertyType);
+
+            int length = rs.getInt(SchemaColumnNameConstants.CHARACTER_MAXIMUM_LENGTH);
+
             return new Column(
                     columnName,
-                    mapUnderscoreToCamelCase(columnName),
                     columnType,
-                    ConverterSQLTypeHandler.format(columnType),
-                    SchemaColumnNameConstants.PRI.equalsIgnoreCase(rs.getString(SchemaColumnNameConstants.COLUMN_KEY)),
-                    len,
-                    StringUtils.trimToEmpty(rs.getString(SchemaColumnNameConstants.COLUMN_COMMENT))
+                    propertyType,
+                    length
             );
-        }, database, name);
+        }, name);
     }
 
     /**
@@ -100,9 +93,6 @@ public abstract class AbstractGenerator implements ICodeGen {
      * @return
      */
     protected String reformatTable (String name, String prefix) {
-        if (StringUtils.isNotBlank(prefix) && name.startsWith(prefix)) {
-            return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name.replaceFirst(prefix, ""));
-        }
-        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name);
+        return name.replaceFirst(prefix, "");
     }
 }

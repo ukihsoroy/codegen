@@ -1,11 +1,14 @@
 package org.ko.generator;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ko.generator.conf.GeneratorConf;
-import org.ko.generator.core.*;
+import org.ko.generator.core.ControllerGenerator;
+import org.ko.generator.core.EntityGenerator;
+import org.ko.generator.core.JsonModelGenerator;
+import org.ko.generator.core.RequestPayloadGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,10 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class GeneratorTests {
 
     String[] tables = new String[]{
-            "t_send_code_log"
+            "DncUser"
     };
-
-
 
     @Test
     public void generatorEntity () throws Exception {
@@ -33,58 +34,39 @@ public class GeneratorTests {
     }
 
     @Test
-    public void generatorRepository () throws Exception {
-        repository.executor(tables);
-    }
-
-    @Test
-    public void generatorCondition () throws Exception {
-        condition.executor(tables);
-    }
-
-    @Test
-    public void generatorDTO () throws Exception {
-        dto.executor(tables);
-    }
-
-    @Test
-    public void generatorService () throws Exception {
-        service.executor(tables);
-    }
-
-    @Test
     public void generatorController () throws Exception {
         controller.executor(tables);
+    }
+
+    @Test
+    public void generatorJsonModel() throws Exception {
+        jsonModel.executor(tables);
+    }
+
+    @Test
+    public void generatorRequestPayload() throws Exception {
+        requestPayload.executor(tables);
     }
 
     @Autowired
     private EntityGenerator entity;
 
     @Autowired
-    private RepositoryGenerator repository;
-
-    @Autowired
-    private ConditionGenerator condition;
-
-    @Autowired
-    private DTOGenerator dto;
-
-    @Autowired
-    private ServiceGenerator service;
-
-    @Autowired
     private ControllerGenerator controller;
+
+    @Autowired
+    private JsonModelGenerator jsonModel;
+
+    @Autowired
+    private RequestPayloadGenerator requestPayload;
 
     @Before
     public void before () {
-        MysqlDataSource dataSource = GeneratorConf.dataSource();
+        SQLServerDataSource dataSource = GeneratorConf.dataSource();
         entity.dataSource(dataSource);
-        repository.dataSource(dataSource);
-        condition.dataSource (dataSource);
-        dto.dataSource(dataSource);
-        service.dataSource(dataSource);
         controller.dataSource(dataSource);
+        jsonModel.dataSource(dataSource);
+        requestPayload.dataSource(dataSource);
     }
-
 
 }

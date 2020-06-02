@@ -16,9 +16,6 @@ public class GeneratorProperties {
 
     private String prefix = "t_";
 
-    //实体类生成配置
-    private EntityProperties entity = new EntityProperties();
-
     //controller生成配置
     private BackendProperties backEnd = new BackendProperties();
 
@@ -36,14 +33,6 @@ public class GeneratorProperties {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
-    }
-
-    public EntityProperties getEntity() {
-        return entity;
-    }
-
-    public void setEntity(EntityProperties entity) {
-        this.entity = entity;
     }
 
     public BackendProperties getBackEnd() {

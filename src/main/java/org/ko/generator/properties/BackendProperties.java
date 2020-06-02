@@ -9,39 +9,13 @@ package org.ko.generator.properties;
  */
 public class BackendProperties {
 
-    private String module = "sigma-app";
+    private String controllerTemplate = "Controller.cs.ftl";
 
-    private String rootPackage = "com.luxshare.sigma.rest";
+    private String entitiesTemplate = "Entities.cs.ftl";
 
-    private String controllerTemplate = "controller.java.ftl";
+    private String jsonModelTemplate = "JsonModel.cs.ftl";
 
-    private String serviceTemplate = "service.java.ftl";
-
-    private String serviceImplTemplate = "serviceImpl.java.ftl";
-
-    private String repositoryTemplate = "repository.java.ftl";
-
-    private String repositoryXMLTemplate = "repository.xml.ftl";
-
-    private String conditionTemplate = "condition.java.ftl";
-
-    private String dtoTemplate = "dto.java.ftl";
-
-    public String getModule() {
-        return module;
-    }
-
-    public void setModule(String module) {
-        this.module = module;
-    }
-
-    public String getRootPackage() {
-        return rootPackage;
-    }
-
-    public void setRootPackage(String rootPackage) {
-        this.rootPackage = rootPackage;
-    }
+    private String requestPayloadTemplate = "RequestPayload.cs.ftl";
 
     public String getControllerTemplate() {
         return controllerTemplate;
@@ -51,51 +25,27 @@ public class BackendProperties {
         this.controllerTemplate = controllerTemplate;
     }
 
-    public String getServiceTemplate() {
-        return serviceTemplate;
+    public String getEntitiesTemplate() {
+        return entitiesTemplate;
     }
 
-    public void setServiceTemplate(String serviceTemplate) {
-        this.serviceTemplate = serviceTemplate;
+    public void setEntitiesTemplate(String entitiesTemplate) {
+        this.entitiesTemplate = entitiesTemplate;
     }
 
-    public String getServiceImplTemplate() {
-        return serviceImplTemplate;
+    public String getJsonModelTemplate() {
+        return jsonModelTemplate;
     }
 
-    public void setServiceImplTemplate(String serviceImplTemplate) {
-        this.serviceImplTemplate = serviceImplTemplate;
+    public void setJsonModelTemplate(String jsonModelTemplate) {
+        this.jsonModelTemplate = jsonModelTemplate;
     }
 
-    public String getRepositoryTemplate() {
-        return repositoryTemplate;
+    public String getRequestPayloadTemplate() {
+        return requestPayloadTemplate;
     }
 
-    public void setRepositoryTemplate(String repositoryTemplate) {
-        this.repositoryTemplate = repositoryTemplate;
-    }
-
-    public String getRepositoryXMLTemplate() {
-        return repositoryXMLTemplate;
-    }
-
-    public void setRepositoryXMLTemplate(String repositoryXMLTemplate) {
-        this.repositoryXMLTemplate = repositoryXMLTemplate;
-    }
-
-    public String getConditionTemplate() {
-        return conditionTemplate;
-    }
-
-    public void setConditionTemplate(String conditionTemplate) {
-        this.conditionTemplate = conditionTemplate;
-    }
-
-    public String getDtoTemplate() {
-        return dtoTemplate;
-    }
-
-    public void setDtoTemplate(String dtoTemplate) {
-        this.dtoTemplate = dtoTemplate;
+    public void setRequestPayloadTemplate(String requestPayloadTemplate) {
+        this.requestPayloadTemplate = requestPayloadTemplate;
     }
 }

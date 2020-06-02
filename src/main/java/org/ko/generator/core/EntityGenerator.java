@@ -23,8 +23,7 @@ import java.util.Objects;
 @Component
 public class EntityGenerator extends AbstractGenerator {
 
-    private static final String ENTITY_PACKAGE = "/entity/";
-    private static final String CONSTANTS_PACKAGE = "/constants/";
+    private static final String ENTITY_PACKAGE = "/Entities/Report/";
 
     @Override
     public void executor(String... names) throws Exception {
@@ -33,43 +32,27 @@ public class EntityGenerator extends AbstractGenerator {
             List<Column> columns = findColumnByTableName(name);
             //表名字
             String entityName = reformatTable(name, properties.getPrefix());
-            //表注释
-            String comment = findTableComment(name);
 
-            String dir = new File(Objects.requireNonNull(this.getClass().getClassLoader()
-                    .getResource(".")).toURI()).getAbsolutePath();
-            int index = dir.indexOf("target");
-            String moduleRoot = new File(dir.substring(0, index)).getParent();
+            String path = properties.getPath() + ENTITY_PACKAGE;
 
-            String javaDir = moduleRoot + "/" + properties.getEntity().getModule() +
-                    ROOT_DIR + properties.getEntity().getRootPackage().replaceAll("\\.", "/");
-            String entityFileName = javaDir + ENTITY_PACKAGE + entityName + ".java";
+            String entityFileName = path + entityName + ".cs";
 
             Map<String, Object> params = new HashMap<>();
 
             params.put("name", name);
             params.put("entityName", entityName);
-            params.put("comment", comment);
             params.put("columns", columns);
-            params.put("rootPackage", properties.getEntity().getRootPackage());
 
             if (StringUtils.isNotEmpty(entityFileName)) {
-                Template template = freemarker.getTemplate(properties.getEntity().getEntityTemplate());
+                File dir = new File(path);
+                if (!dir.exists()) dir.mkdirs();
+                Template template = freemarker.getTemplate(properties.getBackEnd().getEntitiesTemplate());
                 OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(
                         new File(entityFileName)), StandardCharsets.UTF_8);
                 template.process(params, out);
                 out.close();
             }
 
-            String constantsFileName = javaDir + CONSTANTS_PACKAGE + entityName + "Constants.java";
-
-            if (StringUtils.isNotEmpty(constantsFileName)) {
-                Template template = freemarker.getTemplate(properties.getEntity().getConstantsTemplate());
-                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(
-                        new File(constantsFileName)), StandardCharsets.UTF_8);
-                template.process(params, out);
-                out.close();
-            }
         }
     }
 }
