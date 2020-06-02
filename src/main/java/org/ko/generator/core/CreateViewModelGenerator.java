@@ -21,9 +21,9 @@ import java.util.Map;
  * @version 1.0 <br>
  */
 @Component
-public class RequestPayloadGenerator extends AbstractGenerator {
+public class CreateViewModelGenerator extends AbstractGenerator {
 
-    private static final String ENTITY_PACKAGE = "/RequestPayload/Report/";
+    private static final String ENTITY_PACKAGE = "/ViewModels/Report/";
 
     @Override
     public void executor(String... names) throws Exception {
@@ -36,7 +36,7 @@ public class RequestPayloadGenerator extends AbstractGenerator {
 
             String path = properties.getPath() + ENTITY_PACKAGE + entityName + "/";
 
-            String entityFileName = path + entityName + "RequestPayload.cs";
+            String entityFileName = path + entityName + "CreateViewModel.cs";
 
             Map<String, Object> params = new HashMap<>();
 
@@ -47,7 +47,7 @@ public class RequestPayloadGenerator extends AbstractGenerator {
             if (StringUtils.isNotEmpty(entityFileName)) {
                 File dir = new File(path);
                 if (!dir.exists()) dir.mkdirs();
-                Template template = freemarker.getTemplate(properties.getBackEnd().getRequestPayloadTemplate());
+                Template template = freemarker.getTemplate(properties.getBackEnd().getCreateViewModelTemplate());
                 OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(
                         new File(entityFileName)), StandardCharsets.UTF_8);
                 template.process(params, out);

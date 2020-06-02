@@ -10,27 +10,14 @@ namespace Luxshare.Api.ViewModels.Report.${entityName}
     /// <summary>
     /// 
     /// </summary>
-    public class ${entityName}JsonModel
+    public class ${entityName}CreateViewModel
     {
-        public Guid Guid { get; set; }
-
     <#list columns as column>
         public ${column.propertyType} ${column.columnName} { get; set; }
 
     </#list>
         public IsDeleted IsDeleted { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-
-        public Guid CreatedByUserGuid { get; set; }
-
-        public string CreatedByUserName { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
-
-        public Guid? ModifiedByUserGuid { get; set; }
-
-        public string ModifiedByUserName { get; set; }
     }
 
 }

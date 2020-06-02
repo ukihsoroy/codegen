@@ -17,6 +17,8 @@ public class BackendProperties {
 
     private String requestPayloadTemplate = "RequestPayload.cs.ftl";
 
+    private String createViewModelTemplate = "CreateViewModel.cs.ftl";
+
     public String getControllerTemplate() {
         return controllerTemplate;
     }
@@ -47,5 +49,13 @@ public class BackendProperties {
 
     public void setRequestPayloadTemplate(String requestPayloadTemplate) {
         this.requestPayloadTemplate = requestPayloadTemplate;
+    }
+
+    public String getCreateViewModelTemplate() {
+        return createViewModelTemplate;
+    }
+
+    public void setCreateViewModelTemplate(String createViewModelTemplate) {
+        this.createViewModelTemplate = createViewModelTemplate;
     }
 }

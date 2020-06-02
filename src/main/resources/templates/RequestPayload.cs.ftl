@@ -10,5 +10,8 @@ namespace Luxshare.Api.RequestPayload.Report.${entityName}
         public ${column.propertyType} ${column.columnName} { get; set; }
 
     </#list>
+        public IsDeleted IsDeleted { get; set; }
+
+        public Status Status { get; set; }
     }
 }

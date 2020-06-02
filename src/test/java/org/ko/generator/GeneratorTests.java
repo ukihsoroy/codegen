@@ -5,10 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ko.generator.conf.GeneratorConf;
-import org.ko.generator.core.ControllerGenerator;
-import org.ko.generator.core.EntityGenerator;
-import org.ko.generator.core.JsonModelGenerator;
-import org.ko.generator.core.RequestPayloadGenerator;
+import org.ko.generator.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class GeneratorTests {
 
     String[] tables = new String[]{
-            "DncUser"
+            "DncDic"
     };
 
     @Test
@@ -48,6 +45,11 @@ public class GeneratorTests {
         requestPayload.executor(tables);
     }
 
+    @Test
+    public void generatorCreateViewModel() throws Exception {
+        createViewModel.executor(tables);
+    }
+
     @Autowired
     private EntityGenerator entity;
 
@@ -60,6 +62,9 @@ public class GeneratorTests {
     @Autowired
     private RequestPayloadGenerator requestPayload;
 
+    @Autowired
+    private CreateViewModelGenerator createViewModel;
+
     @Before
     public void before () {
         SQLServerDataSource dataSource = GeneratorConf.dataSource();
@@ -67,6 +72,7 @@ public class GeneratorTests {
         controller.dataSource(dataSource);
         jsonModel.dataSource(dataSource);
         requestPayload.dataSource(dataSource);
+        createViewModel.dataSource(dataSource);
     }
 
 }

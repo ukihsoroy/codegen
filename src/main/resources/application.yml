@@ -12,7 +12,7 @@ spring:
 
 # 生成工具配置
 codegen:
-  path: C://
+  path: C:/Luxshare/Luxshare.Api/Luxshare.Api/
   prefix: t_
 
 
