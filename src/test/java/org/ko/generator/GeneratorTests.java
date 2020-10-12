@@ -25,8 +25,6 @@ public class GeneratorTests {
             "t_send_code_log"
     };
 
-
-
     @Test
     public void generatorEntity () throws Exception {
         entity.executor(tables);
